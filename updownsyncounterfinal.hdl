@@ -1,0 +1,31 @@
+CHIP updownsyncounterfinal {
+    IN M, CLK;
+    OUT Qd, Qc, Qb, Qa;
+
+    PARTS:
+    // Put your code here:
+    jkff(J=true, K=true, CLK=CLK, Q=Qd, Q=CQd, nQ=nQd, nQ=nCQd);
+    Not(in=M, out=nM);
+
+    And(a=nM, b=CQd, out=and1);
+    
+    And(a=nCQd, b=M, out=and2);
+    Or(a=and1, b=and2, out=or1);
+
+    jkff(J=or1, K=or1, CLK=CLK, Q=Qc, Q=CQc, nQ=nQc, nQ=nCQc);
+    
+    And(a=and1, b=CQc, out=and3);
+    
+    And(a=nCQc, b=and2, out=and4);
+    Or(a=and3, b=and4, out=or2);
+
+    jkff(J=or2, K=or2, CLK=CLK, Q=Qb, Q=CQb, nQ=nQb, nQ=nCQb);
+    
+    And(a=and3, b=CQb, out=and5);
+    
+    And(a=nCQb, b=and4, out=and6);
+    Or(a=and5, b=and6, out=or3);
+
+    jkff(J=or3, K=or3, CLK=CLK, Q=Qa);
+    
+}

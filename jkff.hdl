@@ -1,0 +1,12 @@
+CHIP jkff {
+    IN J, K, CLK;
+    OUT Q, nQ;
+
+    PARTS:
+    Not(in=Qout,out=nQout,out=nQ);
+    Not(in=K, out=cK);
+    Nand(a=J,b=nQout,out=c1);
+    Nand(a=cK,b=Qout,out=c2);
+    Nand(a=c1,b=c2,out=c3);
+    DFF(in=c3,out=Qout,out=Q);
+}
