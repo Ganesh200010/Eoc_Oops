@@ -1,42 +1,40 @@
 CHIP ALU {
-     
-     IN 
-     x[16],y[16],
-     zx,
-     nx,
-     zy,
-     ny,
-     f,
-     no;
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute out = x + y (if 1) or x & y (if 0)
+        no; // negate the out output?
 
-     OUT
-     out[16],
-     zr,
-     ng;
+    OUT 
+        out[16], // 16-bit output
+        zr, // 1 if (out == 0), 0 otherwise
+        ng; // 1 if (out < 0),  0 otherwise
 
-     PARTS:
-     Mux16(a=x,b=false,sel=zx,out=x1);
-     Mux16(a=y,b=false,sel=zy,out=y1);
+    PARTS:
+   // Put you code here:
 
-     Not16(in=x1,out=notx1);
-     Mux16(a=x1,b=notx1,sel=nx,out=x2);
+   Mux16(a=x,b=false,sel=zx,out=x1);
+   Mux16(a=y,b=false,sel=zy,out=y1);
 
-     Not16(in=y1,out=noty1);
-     Mux16(a=y1,b=noty1,sel=ny,out=y2);
+   Not16(in=x1,out=notx1);
+   Mux16(a=x1,b=notx1,sel=nx,out=x2);
 
-     Add16(a=x2,b=y2,out=addout);
-     And16(a=x2,b=y2,out=andout);
+   Not16(in=y1,out=noty1);
+   Mux16(a=y1,b=noty1,sel=ny,out=y2);
 
-     Mux16(a=andout,b=addout,sel=f,out=fout);
+   Add16(a=x2,b=y2,out=addout);
+   And16(a=x2,b=y2,out=andout);
 
-     Not16(in=fout,out=notfout);
-     
-     Mux16(a=fout,b=notfout,sel=no,out=out,
-           out[0..7]=outfirst,
-           out[8..15]=outsecond,out[15]=ng);
+   Mux16(a=andout,b=addout,sel=f,out=fout);
 
-     Or8Way(in=outfirst,out=zr0);
-     Or8Way(in=outsecond,out=zr1);
-     Or(a=zr0,b=zr1,out=zr2);
-     Not(in=zr2,out=zr);
+   Not16(in=fout,out=notfout);
+   Mux16(a=fout,b=notfout,sel=no,out=out, out[0..7]=outfirst, out[8..15]=outsecond,out[15]=ng);
+
+   Or8Way(in=outfirst,out=zr0);
+   Or8Way(in=outsecond,out=zr1);
+   Or(a=zr0,b=zr1,out=zr2);
+   Not(in=zr2,out=zr);
 }
