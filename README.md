@@ -30,3 +30,24 @@ Eoc
  Object Oriented Programming
 •
 The constituent elements of the Hack CPU must be implemented in JAVA, starting from the implementation of NAND gates, calling all constituent elements as per the architecture, and finally delivering the functionality of CPU You must give an input bit sequence and show the corresponding output 2
+
+
+Part-B
+
+As a part of this project, the team is expected to study the design of
+the digital logic systems and how it can be programmed/implemented
+in hardware description language and Object Oriented language
+
+Design and implement synchronous UP/DOWN counter circuit using JK Flip flops (up counting from 0 to 15 and downcounting 15 to 0 based on a control input)
+
+EOC 1
+
+•The implementation must be shown in the Hack Platform Built in chips should not be used in any implementations
+except the D flip flop However, improvisation in any other platforms like CircuitVerse Falstad etc is allowed
+
+
+Object Oriented Programming
+
+• The constituent elements of the design should be made from NAND gates The functionality of the design should be shown as a JAVA program You must
+give an input bit sequence and show the corresponding output, wherever applicable
+
