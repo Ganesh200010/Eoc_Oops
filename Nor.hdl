@@ -1,0 +1,11 @@
+CHIP Nor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    Nand(a=a , b=a , out = o1);
+    Nand(a = b, b = b, out = o2);
+    Nand(a=o1, b=o2, out = o3);
+    Nand(a=o3, b=o3, out=out);
+}
