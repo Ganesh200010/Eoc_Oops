@@ -1,0 +1,13 @@
+CHIP PC {
+
+     IN in[16],load,inc,reset;
+     OUT out[16];
+
+     PARTS:
+     Inc16(in=FBout,out=incout);
+     Mux16(a=FBout,b=incout,sel=inc,out=w0);
+     Mux16(a=w0,b=in,sel=load,out=w1);
+     Mux16(a=w1,b=false,sel=reset,out=cout);
+     Or3input(a=inc,b=load,c=reset,out=regload);
+     Register(in=cout,load=regload,out=out,out=FBout);
+}     
